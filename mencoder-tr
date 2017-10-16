@@ -1,0 +1,16 @@
+#!/bin/bash
+
+mencoder \
+-really-quiet \
+-ass \
+-oac lavc -ovc lavc \
+-of mpeg \
+-mpegopts format=dvd:tsaf \
+-vf softskip,harddup \
+-vf-add fixpts=fps=24000/1001,ass,fixpts \
+-srate 44100 \
+-af lavcresample=44100:volnorm \
+-ofps 24000/1001 \
+-lavcopts vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=8192:vstrict=0:keyint=15:vbitrate=8192:acodec=mp2:abitrate=192:threads=2:autoaspect \
+-alang jpn -slang en,eng,english,und \
+"$1" -o "$2"

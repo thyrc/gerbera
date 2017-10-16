@@ -1,0 +1,15 @@
+#!/bin/bash
+
+mencoder \
+-really-quiet \
+-sub "$1" \
+-subfont-autoscale 0 -subfont-text-scale 20 -subpos 100 \
+-oac lavc -ovc lavc \
+-of mpeg \
+-mpegopts format=dvd:tsaf \
+-vf softskip,harddup \
+-srate 44100 \
+-af lavcresample=44100:volnorm \
+-ofps 24000/1001 \
+-lavcopts vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=8192:vstrict=0:keyint=15:vbitrate=4096:acodec=mp2:abitrate=192:threads=2:autoaspect \
+"$(echo $1 |sed 's/...$/avi/')" -o "$2"
